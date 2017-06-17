@@ -1,9 +1,16 @@
 #include <QCoreApplication>
-#include "singletons.h"
+#include "singleton.h"
+#include <string>
+#include <iostream>
+
+using namespace patterns;
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-    // Singletons
+    // Singleton test casing
+    auto instance = Singleton::getInstance();
+    cout << instance->getName() << endl;
 
 
 
