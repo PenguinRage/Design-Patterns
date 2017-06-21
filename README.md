@@ -8,4 +8,4 @@ Practice for exams, using website resources, Gang of Four and other various sour
 ![Abstract Factory](https://sourcemaking.com/files/v2/content/patterns/Abstract_Factory.svg "Abstract Factory Diagram")
 
 ### Builder
-![Builder](https://sourcemaking.com/files/v2/content/patterns/Builder.svg "Builder Diagram")
+![Builder](http://sydney.edu.au/engineering/it/courses/info3220/pics/Builder.png "Builder Diagram")
