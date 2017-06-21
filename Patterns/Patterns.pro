@@ -24,4 +24,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     singleton.h \
-    abstractfactory.h
+    abstractfactory.h \
+    builder.h

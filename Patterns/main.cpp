@@ -1,5 +1,6 @@
 #include "singleton.h"
 #include "abstractfactory.h"
+#include "builder.h"
 
 #include <string>
 #include <iostream>
@@ -38,6 +39,17 @@ bool abstractFactoryCaseTest()
     return 0;
 }
 
+// Builder
+bool builderCaseTest() // This method acts as a director for the builder test cases
+{
+    // builder testcases
+    // simple usage
+    RGB hot_pink = RGB::Builder().setRed(255).setGreen(105).setBlue(180).build();
+    hot_pink.print(); // test p1
+
+    return 0;
+}
+
 int main()
 {
     int numberOfTestsFailed = 0;
@@ -46,6 +58,9 @@ int main()
         numberOfTestsFailed++;
     }
     if (abstractFactoryCaseTest()) {
+        numberOfTestsFailed++;
+    }
+    if (builderCaseTest()) {
         numberOfTestsFailed++;
     }
     if (0 == numberOfTestsFailed)
