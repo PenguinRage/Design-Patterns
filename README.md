@@ -1,4 +1,6 @@
 # Design-Patterns
+
+Continue
 Practice for exams, using website resources, Gang of Four and other various sources which will be posted later.
 
 ### Singletons
