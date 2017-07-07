@@ -1,5 +1,5 @@
-#include "singleton.h"
-#include "abstractfactory.h"
+#include "singleton.hpp"
+#include "abstractfactory.hpp"
 #include "builder.h"
 
 #include <string>

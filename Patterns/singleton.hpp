@@ -19,7 +19,7 @@ namespace patterns {
 
 class Singleton {
 private:
-    Singleton() : name("Singleton Design Pattern") {};
+    Singleton() : name("My lovely singleton pattern") {};
     static Singleton* myInstance;
 
 private:

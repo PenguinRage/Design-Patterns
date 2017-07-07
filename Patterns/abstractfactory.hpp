@@ -18,7 +18,7 @@ namespace patterns {
 
 class Emote {
 public:
-    virtual void draw() = 0;
+    virtual std::string draw() = 0;
     virtual ~Emote(){}
 
 private:
@@ -27,16 +27,22 @@ private:
 
 class Happy : public Emote {
 public:
-    void draw() {
-        std::cout << "(⌒▽⌒)☆" << std::endl;
+    std::string draw() {
+        return emote;
     }
+
+private:
+    std::string emote = "(⌒▽⌒)☆";
 };
 
 class Sad : public Emote {
 public:
-    void draw() {
-        std::cout << "（´＿｀）" << std::endl;
+    std::string draw() {
+        return emote;
     }
+
+private:
+    std::string emote = "（´＿｀）";
 };
 
 class AbstractFactory
