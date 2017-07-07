@@ -3,6 +3,8 @@
 
 #include <string>
 #include <random>
+#include <map>
+#include <boost/functional/hash.hpp>
 
 namespace patterns {
 
@@ -13,36 +15,57 @@ namespace patterns {
         virtual Prototype *Clone() = 0;
     };
 
-    class Torrent : public Prototype {
+    class AI : public Prototype {
     public:
-        Torrent() {
+        AI() {
             std::mt19937 rng;
             rng.seed(std::random_device()());
             std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 999999);
-            m_torrent_id = dist6(rng);
+            m_ai_id = dist6(rng);
 
         }
 
-        virtual ~Torrent() {}
+        virtual ~AI() {}
 
         bool Download() {
             return true;
         }
 
         virtual Prototype *Clone() {
-            Torrent *t = new Torrent();
-            t->m_torrent_id = m_torrent_id;
+            AI *t = new AI();
+            t->m_ai_id = m_ai_id;
             return t;
         }
 
         unsigned long GetTorrentID() {
-            return m_torrent_id;
+            return m_ai_id;
         }
 
     private:
-        unsigned long m_torrent_id;
+        unsigned long m_ai_id;
     };
 
+    class PrototypeHandler {
+    public:
+        PrototypeHandler() {
+            m_prototype_map = new std::map<int, Prototype *>;
+        }
+
+        virtual ~PrototypeHandler() {
+            delete m_prototype_map;
+        }
+
+        void AddPrototype(Prototype *p, int index) {
+            (*m_prototype_map)[index] = p;
+        }
+
+        Prototype *GetPrototype(int index) {
+            return m_prototype_map->at(index)->Clone();
+        }
+
+    private:
+        std::map<int, Prototype *> *m_prototype_map;
+    };
 
 }
 
