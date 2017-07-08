@@ -12,6 +12,7 @@
 #include "Patterns/abstractfactory.hpp"
 #include "Patterns/builder.hpp"
 #include "Patterns/prototype.hpp"
+#include "Patterns/bridge.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -91,7 +92,6 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
         manager->AddPrototype(torrent, 0);
         AI *torrent1_clone = dynamic_cast<AI *> (manager->GetPrototype(0));
         REQUIRE(torrent1_clone->GetTorrentID() == torrent->GetTorrentID());
-        cout << torrent->GetTorrentID() << endl;
     }
 
 
@@ -99,4 +99,18 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
 
 TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]") {
 
+}
+
+TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") {
+    SECTION("Bridge") {
+
+        GameConsole *xbox = new Xbox(new Bioshock(), "Bioshock Infinite");
+        GameConsole *playstation = new Xbox(new Fable(), "Fable 3");
+
+        REQUIRE(xbox->play() == "Bioshock Infinite");
+        REQUIRE(playstation->play() == "Fable 3");
+
+        delete xbox;
+        delete playstation;
+    }
 }
