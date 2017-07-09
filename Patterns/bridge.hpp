@@ -44,6 +44,8 @@ namespace patterns {
         virtual ~GameConsole() { delete m_game; }
 
         virtual std::string play() = 0;
+
+        virtual void load(VideoGame *video_game, std::string title) = 0;
     };
 
 
@@ -57,6 +59,12 @@ namespace patterns {
         ~Xbox() {}
 
         std::string play() { return m_game->playGame(m_title); }
+
+        void load(VideoGame *video_game, std::string title) {
+            delete m_game;
+            m_game = video_game;
+            m_title = title;
+        }
     };
 
 
@@ -68,8 +76,13 @@ namespace patterns {
         PlayStation(VideoGame *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
 
         ~PlayStation() {}
-
         std::string play() { return m_game->playGame(m_title); }
+
+        void load(VideoGame *video_game, std::string title) {
+            delete m_game;
+            m_game = video_game;
+            m_title = title;
+        }
     };
 }
 

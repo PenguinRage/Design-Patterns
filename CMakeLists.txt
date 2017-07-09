@@ -3,5 +3,5 @@ project(Design_Patterns)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp Patterns/factorymethod.hpp)
-add_executable(Design_Patterns ${SOURCE_FILES} Patterns/prototype.hpp)
+set(SOURCE_FILES main.cpp)
+add_executable(Design_Patterns ${SOURCE_FILES} Patterns)

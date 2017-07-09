@@ -13,6 +13,8 @@
 #include "Patterns/builder.hpp"
 #include "Patterns/prototype.hpp"
 #include "Patterns/bridge.hpp"
+#include "Patterns/adapter.hpp"
+
 
 using namespace patterns;
 using namespace std;
@@ -110,7 +112,16 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         REQUIRE(xbox->play() == "Bioshock Infinite");
         REQUIRE(playstation->play() == "Fable 3");
 
+        xbox->load(new Fable, "Fable 2");
+        playstation->load(new Bioshock, "Bioshock");
+
         delete xbox;
         delete playstation;
+    }
+    SECTION("Adapter") {
+        Manjaro *my_dist = new ManjaroAdapter(
+                "CPU~Dual core Intel Core i7-3517U (-HT-MCP-) speed/max~859/3000 MHz Kernel~4.9.31-1-MANJARO x86_64 Up~6:15 Mem~3908.2/7611.7MB HDD~256.1GB(13.4% used) Procs~191 Client~Shell inxi~2.3.9 ");
+        REQUIRE(my_dist->showLogo() ==
+                "CPU~Dual core Intel Core i7-3517U (-HT-MCP-) speed/max~859/3000 MHz Kernel~4.9.31-1-MANJARO x86_64 Up~6:15 Mem~3908.2/7611.7MB HDD~256.1GB(13.4% used) Procs~191 Client~Shell inxi~2.3.9 ");
     }
 }
