@@ -14,7 +14,7 @@
 #include "Patterns/prototype.hpp"
 #include "Patterns/bridge.hpp"
 #include "Patterns/adapter.hpp"
-
+#include "Patterns/proxy.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -88,12 +88,12 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
     }
 
     SECTION("Prototype") {
-        AI *torrent = new AI();
+        Virus *torrent = new Virus();
         REQUIRE(torrent->Download());
         PrototypeHandler *manager = new PrototypeHandler();
         manager->AddPrototype(torrent, 0);
-        AI *torrent1_clone = dynamic_cast<AI *> (manager->GetPrototype(0));
-        REQUIRE(torrent1_clone->GetTorrentID() == torrent->GetTorrentID());
+        Virus *virus_clone = dynamic_cast<Virus *> (manager->GetPrototype(0));
+        REQUIRE(virus_clone->GetVirusID() == torrent->GetVirusID());
     }
 
 
@@ -114,6 +114,7 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
 
         xbox->load(new Fable, "Fable 2");
         playstation->load(new Bioshock, "Bioshock");
+        REQUIRE(playstation->play() == "Bioshock");
 
         delete xbox;
         delete playstation;
@@ -124,4 +125,18 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         REQUIRE(my_dist->showLogo() ==
                 "CPU~Dual core Intel Core i7-3517U (-HT-MCP-) speed/max~859/3000 MHz Kernel~4.9.31-1-MANJARO x86_64 Up~6:15 Mem~3908.2/7611.7MB HDD~256.1GB(13.4% used) Procs~191 Client~Shell inxi~2.3.9 ");
     }
+    SECTION("Protection Proxy") {
+        Alcoholic *angst_teen = new Alcoholic(15);
+        Alcohol *drink = new ProxyBar(angst_teen);
+        REQUIRE(!drink->drink());
+        angst_teen->set_age(19);
+        REQUIRE(drink->drink());
+        delete drink;
+    }
+
+    SECTION("Decorator") {
+
+    }
+
+
 }

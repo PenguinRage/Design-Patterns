@@ -15,9 +15,9 @@ namespace patterns {
         virtual Prototype *Clone() = 0;
     };
 
-    class AI : public Prototype {
+    class Virus : public Prototype {
     public:
-        AI() {
+        Virus() {
             std::mt19937 rng;
             rng.seed(std::random_device()());
             std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 999999);
@@ -25,19 +25,19 @@ namespace patterns {
 
         }
 
-        virtual ~AI() {}
+        virtual ~Virus() {}
 
         bool Download() {
             return true;
         }
 
         virtual Prototype *Clone() {
-            AI *t = new AI();
+            Virus *t = new Virus();
             t->m_ai_id = m_ai_id;
             return t;
         }
 
-        unsigned long GetTorrentID() {
+        unsigned long GetVirusID() {
             return m_ai_id;
         }
 
