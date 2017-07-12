@@ -15,6 +15,7 @@
 #include "Patterns/bridge.hpp"
 #include "Patterns/adapter.hpp"
 #include "Patterns/proxy.hpp"
+#include "Patterns/decorator.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -88,12 +89,21 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
     }
 
     SECTION("Prototype") {
-        Virus *torrent = new Virus();
-        REQUIRE(torrent->Download());
+        // I made a unique identifier in the creation of a virus.. The virus can only be the same if a clone is created
+
+        Virus *ebola = new Virus();
+        Virus *flu = new Virus();
+        REQUIRE(ebola->GetVirusID() != flu->GetVirusID());
+
         PrototypeHandler *manager = new PrototypeHandler();
-        manager->AddPrototype(torrent, 0);
-        Virus *virus_clone = dynamic_cast<Virus *> (manager->GetPrototype(0));
-        REQUIRE(virus_clone->GetVirusID() == torrent->GetVirusID());
+        manager->AddPrototype(ebola, 0);
+        manager->AddPrototype(flu, 1);
+
+        Virus *ebola_spawn = dynamic_cast<Virus *> (manager->GetPrototype(0));
+        Virus *flu_spawn = dynamic_cast<Virus *> (manager->GetPrototype(1));
+
+        REQUIRE(ebola_spawn->GetVirusID() == ebola->GetVirusID());
+        REQUIRE(flu_spawn->GetVirusID() == flu->GetVirusID());
     }
 
 
@@ -135,8 +145,19 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
     }
 
     SECTION("Decorator") {
+        // Stock standard witcher game is out
+        SteamGame *game = new Witcher3();
+        REQUIRE(game->cost() == 39.99);
+
+        // New DLC content has come out!!!
+        game = new HeartOfStone(game);
+        REQUIRE(game->cost() == (39.99 + 9.99));
+        REQUIRE(game->play());
+
+        // More DLC :)
+        game = new BloodAndWine(game);
+        REQUIRE(game->cost() > 50);
+        REQUIRE(game->play());
 
     }
-
-
 }

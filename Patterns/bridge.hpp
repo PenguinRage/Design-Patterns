@@ -9,7 +9,7 @@ namespace patterns {
     public:
         VideoGame() {}
 
-        virtual std::string playGame(std::string title) = 0;
+        virtual std::string getGameTitle(std::string title) = 0;
     };
 
     class Bioshock : public VideoGame {
@@ -18,7 +18,7 @@ namespace patterns {
 
         ~Bioshock() {}
 
-        std::string playGame(std::string title) {
+        std::string getGameTitle(std::string title) {
             return title;
         }
     };
@@ -29,7 +29,7 @@ namespace patterns {
 
         ~Fable() {}
 
-        std::string playGame(std::string title) {
+        std::string getGameTitle(std::string title) {
             return title;
         }
     };
@@ -58,7 +58,7 @@ namespace patterns {
 
         ~Xbox() {}
 
-        std::string play() { return m_game->playGame(m_title); }
+        std::string play() { return m_game->getGameTitle(m_title); }
 
         void load(VideoGame *video_game, std::string title) {
             delete m_game;
@@ -76,7 +76,8 @@ namespace patterns {
         PlayStation(VideoGame *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
 
         ~PlayStation() {}
-        std::string play() { return m_game->playGame(m_title); }
+
+        std::string play() { return m_game->getGameTitle(m_title); }
 
         void load(VideoGame *video_game, std::string title) {
             delete m_game;
