@@ -16,6 +16,7 @@
 #include "Patterns/adapter.hpp"
 #include "Patterns/proxy.hpp"
 #include "Patterns/decorator.hpp"
+#include "Patterns/composite.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -158,6 +159,42 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         game = new BloodAndWine(game);
         REQUIRE(game->cost() > 50);
         REQUIRE(game->play());
+    }
+
+    SECTION ("Composite") {
+
+        // Might add a find method into the composite to have return results
+        Component *root = new Composite("/");
+        Component *bin = new Composite("bin");
+        Component *etc = new Composite("etc");
+        Component *home = new Composite("home");
+        Component *user_account = new Composite("penguinrage");
+
+        bin->add(new Leaf("cat"));
+        bin->add(new Leaf("top"));
+        bin->add(new Leaf("cd"));
+
+        etc->add(new Leaf("pacman.conf"));
+        etc->add(new Leaf("rc.local"));
+
+        home->add(user_account);
+
+        user_account->add(new Leaf("bash.profile"));
+        user_account->add(new Leaf(".vimrc"));
+
+        root->add(bin);
+        root->add(etc);
+        root->add(home);
+        root->show(0);
+
+        delete user_account;
+        delete home;
+        delete etc;
+        delete bin;
+        delete root;
+        cout << endl;
 
     }
+
+
 }
