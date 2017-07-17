@@ -17,6 +17,7 @@
 #include "Patterns/proxy.hpp"
 #include "Patterns/decorator.hpp"
 #include "Patterns/composite.hpp"
+#include "Patterns/fascade.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -196,9 +197,16 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         delete etc;
         delete bin;
         delete root;
-        cout << endl;
-
+        //cout << endl;
     }
+    SECTION("Fascade") {
+        HeistFacade *heist = new HeistFacade(new Conman(4), new Robber(false), new Driver(true));
+        REQUIRE(!heist->robTheBank());
+        heist->trainTheTeam();
+        heist->trainTheTeam();
+        REQUIRE(heist->robTheBank());
+    }
+
 
 
 }
