@@ -185,7 +185,7 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         root->add(bin);
         root->add(etc);
         root->add(home);
-        root->show(0);
+        //root->tree(0);
 
         REQUIRE(root->find("bash.profile"));
         REQUIRE(root->find("/"));

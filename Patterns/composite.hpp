@@ -20,7 +20,7 @@ namespace patterns {
 
         virtual void remove(Component *com) {}
 
-        virtual void show(int level) = 0;
+        virtual void tree(int level) = 0;
 
         virtual bool find(std::string) = 0;
 
@@ -39,7 +39,7 @@ namespace patterns {
 
         ~Leaf() {}
 
-        void show(int level) {
+        void tree(int level) {
             showEmpty(level);
             std::cout << m_name << std::endl;
         }
@@ -68,12 +68,12 @@ namespace patterns {
 
         void remove(Component *com) {}
 
-        void show(int level) {
+        void tree(int level) {
             showEmpty(level);
             std::cout << m_name << std::endl;
 
             for (std::vector<Component *>::size_type i = 0; i != vec.size(); i++) {
-                vec[i]->show(level + 1);
+                vec[i]->tree(level + 1);
             }
         }
 
