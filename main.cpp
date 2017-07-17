@@ -187,6 +187,10 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         root->add(home);
         root->show(0);
 
+        REQUIRE(root->find("bash.profile"));
+        REQUIRE(root->find("/"));
+        REQUIRE(!root->find("fhusdhu"));
+
         delete user_account;
         delete home;
         delete etc;

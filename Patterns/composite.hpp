@@ -22,6 +22,8 @@ namespace patterns {
 
         virtual void show(int level) = 0;
 
+        virtual bool find(std::string) = 0;
+
         void showEmpty(int level) {
             int count = 4 * level;
             for (int i = 0; i < count; i++) {
@@ -40,6 +42,11 @@ namespace patterns {
         void show(int level) {
             showEmpty(level);
             std::cout << m_name << std::endl;
+        }
+
+        bool find(std::string name) {
+            if (name == m_name) return true;
+            return false;
         }
 
     private:
@@ -68,6 +75,15 @@ namespace patterns {
             for (std::vector<Component *>::size_type i = 0; i != vec.size(); i++) {
                 vec[i]->show(level + 1);
             }
+        }
+
+        bool find(std::string name) {
+            if (m_name == name) return true;
+
+            for (std::vector<Component *>::size_type i = 0; i != vec.size(); i++) {
+                if (vec[i]->find(name)) return true;
+            }
+            return false;
         }
 
     private:
