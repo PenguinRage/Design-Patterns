@@ -219,6 +219,9 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         for (size_t i = 0; i < requests.length(); i++) {
             ASCII *art = factory->GetArt(chars[i]);
             art->Display();
+            if (chars[i] == 'C') REQUIRE(art->getName() == "Computer Ascii");
+            else if (chars[i] == 'U') REQUIRE(art->getName() == "UFO Ascii");
+            else if (chars[i] == 'T') REQUIRE(art->getName() == "TV Ascii");
         }
 
         //Clean memory

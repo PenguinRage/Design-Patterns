@@ -25,7 +25,7 @@ namespace patterns {
     class COMP_ASCII : public ASCII {
     public:
         COMP_ASCII() {
-            m_name = 'Computer Ascii';
+            m_name = "Computer Ascii";
             m_art = "▐▓█▀▀▀▀▀▀▀▀▀█▓▌░▄▄▄▄▄░\n"
                     "▐▓█░░▀░░▀▄░░█▓▌░█▄▄▄█░\n"
                     "▐▓█░░▄░░▄▀░░█▓▌░█▄▄▄█░\n"
@@ -37,7 +37,7 @@ namespace patterns {
     class UFO_ASCII : public ASCII {
     public:
         UFO_ASCII() {
-            m_name = 'UFO Ascii';
+            m_name = "UFO Ascii";
             m_art = "▒▒▄▀▀▀▀▀▄▒▒▒▒▒▄▄▄▄▄▒▒▒\n"
                     "▒▐░▄░░░▄░▌▒▒▄█▄█▄█▄█▄▒\n"
                     "▒▐░▀▀░▀▀░▌▒▒▒▒▒░░░▒▒▒▒\n"
@@ -49,7 +49,7 @@ namespace patterns {
     class TV_ASCII : public ASCII {
     public:
         TV_ASCII() {
-            m_name = 'TV Ascii';
+            m_name = "TV Ascii";
             m_art = "░▀▄░░▄▀\n"
                     "▄▄▄██▄▄▄▄▄░▀█▀▐░▌\n"
                     "█▒░▒░▒░█▀█░░█░▐░▌\n"
