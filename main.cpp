@@ -18,6 +18,8 @@
 #include "Patterns/decorator.hpp"
 #include "Patterns/composite.hpp"
 #include "Patterns/fascade.hpp"
+#include "Patterns/mediator.hpp"
+#include "Patterns/flyweight.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -207,6 +209,20 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         REQUIRE(heist->robTheBank());
     }
 
+    SECTION("Flyweight") {
+        string requests = "CCTTUTCC";
+        const char *chars = requests.c_str();
 
+        ASCIIFactory *factory = new ASCIIFactory();
+
+        // For each character use a flyweight object
+        for (size_t i = 0; i < requests.length(); i++) {
+            ASCII *art = factory->GetArt(chars[i]);
+            art->Display();
+        }
+
+        //Clean memory
+        delete factory;
+    }
 
 }
