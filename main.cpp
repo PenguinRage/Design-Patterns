@@ -1,6 +1,7 @@
 // Default Libraries
 #include <iostream>
 #include <map>
+#include <sstream>
 
 // Testing Parameters
 #define CATCH_CONFIG_MAIN
@@ -20,6 +21,8 @@
 #include "Patterns/fascade.hpp"
 #include "Patterns/mediator.hpp"
 #include "Patterns/flyweight.hpp"
+#include "Patterns/interpreter.hpp"
+
 
 using namespace patterns;
 using namespace std;
@@ -114,7 +117,17 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
 }
 
 TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]") {
+    SECTION("Interpreter") {
+        Tokenizer *t = new Tokenizer();
+        std::vector<string> t_vector = t->splitTokens("- + 7 5 4", ' ');
+        Expression *expression = t->readToken(&t_vector);
+        REQUIRE(expression->interpret() == 8);
 
+        t_vector = t->splitTokens("8", ' ');
+        expression = t->readToken(&t_vector);
+        REQUIRE(expression->interpret() == 8);
+
+    }
 }
 
 TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") {
