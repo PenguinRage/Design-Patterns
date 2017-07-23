@@ -2,6 +2,8 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <time.h>
+
 
 // Testing Parameters
 #define CATCH_CONFIG_MAIN
@@ -22,7 +24,7 @@
 #include "Patterns/mediator.hpp"
 #include "Patterns/flyweight.hpp"
 #include "Patterns/interpreter.hpp"
-
+#include "Patterns/state.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -127,6 +129,21 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         expression = t->readToken(&t_vector);
         REQUIRE(expression->interpret() == 8);
 
+    }
+
+    SECTION("State") {
+        Account *account = new Account("Dr. Who");
+        account->Withdraw(10.00);
+        account->Withdraw(30.00);
+        account->Withdraw(70.00);
+        account->Deposit(234.00);
+        account->Deposit(5000.00);
+        account->Withdraw(5200.00);
+        account->Deposit(1500.00);
+        account->Deposit(1.00);
+        account->Withdraw(1200.00);
+
+        delete account;
     }
 }
 
