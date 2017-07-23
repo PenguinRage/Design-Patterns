@@ -25,6 +25,7 @@
 #include "Patterns/flyweight.hpp"
 #include "Patterns/interpreter.hpp"
 #include "Patterns/state.hpp"
+#include "Patterns/chainofcommand.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -144,6 +145,11 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         account->Withdraw(1200.00);
 
         delete account;
+    }
+
+    SECTION("Chain Of Command") {
+        Photo *p = new Photo("Y2013 Photo");
+        processPhoto(*p);
     }
 }
 
