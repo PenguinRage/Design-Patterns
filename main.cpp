@@ -26,6 +26,7 @@
 #include "Patterns/interpreter.hpp"
 #include "Patterns/state.hpp"
 #include "Patterns/chainofcommand.hpp"
+#include "Patterns/observer.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -105,12 +106,13 @@ TEST_CASE("Creational Design patterns", "[Testing Creational Design Patterns]") 
         Virus *flu = new Virus();
         REQUIRE(ebola->GetVirusID() != flu->GetVirusID());
 
-        PrototypeHandler *manager = new PrototypeHandler();
-        manager->AddPrototype(ebola, 0);
-        manager->AddPrototype(flu, 1);
+        PrototypeHandler *virologist = new PrototypeHandler();
+        virologist->AddPrototype(ebola, 0);
+        virologist->AddPrototype(flu, 1);
 
-        Virus *ebola_spawn = dynamic_cast<Virus *> (manager->GetPrototype(0));
-        Virus *flu_spawn = dynamic_cast<Virus *> (manager->GetPrototype(1));
+
+        Virus *ebola_spawn = dynamic_cast<Virus *> (virologist->GetPrototype(0));
+        Virus *flu_spawn = dynamic_cast<Virus *> (virologist->GetPrototype(1));
 
         REQUIRE(ebola_spawn->GetVirusID() == ebola->GetVirusID());
         REQUIRE(flu_spawn->GetVirusID() == flu->GetVirusID());
@@ -150,6 +152,36 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
     SECTION("Chain Of Command") {
         Photo *p = new Photo("Y2013 Photo");
         processPhoto(*p);
+    }
+
+    SECTION("Observer") {
+        Company *c1 = new Company("Google", "$", 123.0);
+        cout << "Created company Google with Stock Price 123.0\n" << endl;
+
+        Investor *i1 = new Investor("Billy");
+        c1->Attach(i1);
+        cout << "Created investor Billy following Google\n" << endl;
+
+        c1->SetPrice(125.0);
+
+        Investor *i2 = new Investor("Timmy");
+        c1->Attach(i2);
+        Investor *i3 = new Investor("Lenny");
+        c1->Attach(i3);
+        cout << "\nCreated investor Timmy and Lenny following Google\n" << endl;
+
+        c1->SetPrice(145.0);
+
+        c1->Detach(i1);
+        c1->Detach(i3);
+        cout << "\nInvestor Billy and Lenny not interested in Google anymore\n" << endl;
+
+        c1->SetPrice(165.0);
+
+        delete i1;
+        delete i2;
+        delete i3;
+        delete c1;
     }
 }
 
