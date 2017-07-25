@@ -27,6 +27,7 @@
 #include "Patterns/state.hpp"
 #include "Patterns/chainofcommand.hpp"
 #include "Patterns/observer.hpp"
+#include "Patterns/memento.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -182,6 +183,30 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         delete i2;
         delete i3;
         delete c1;
+    }
+
+    SECTION ("Memento") {
+        GitOriginator<string> *orig = new GitOriginator<string>();
+        GitCaretaker<string> *care_taker = new GitCaretaker<string>();
+
+        string commit_sha1 = "b4902e1292af8b331e43a51ba8bbf9511f292714";
+        string commit_sha2 = "47ece89cc85705281e4e0d435ec8297fb7895846";
+        string commit_sha3 = "b636032d633af4b6eb31abb1195045f133ae569c";
+
+        orig->set_state(commit_sha1);
+        care_taker->COMMIT(orig);
+        REQUIRE(orig->get_State() == commit_sha1);
+
+        orig->set_state(commit_sha2);
+        care_taker->COMMIT(orig);
+        REQUIRE(orig->get_State() == commit_sha2);
+
+        orig->set_state(commit_sha3);
+        care_taker->COMMIT(orig);
+        REQUIRE(orig->get_State() == commit_sha3);
+
+        care_taker->ROLLBACK(orig, 0);
+        REQUIRE(orig->get_State() == commit_sha1);
     }
 }
 
