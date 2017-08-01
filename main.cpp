@@ -134,6 +134,19 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         REQUIRE(expression->interpret() == 8);
 
     }
+    SECTION("Mediator") {
+        Mediator *mediator = new ConcreteMediator();
+        Person *personA = new ConcretePersonA(mediator);
+        Person *personB = new ConcretePersonB(mediator);
+
+        mediator->BuildRelation(personA, personB);
+        personA->SendMessage("PersonA");
+        personB->SendMessage("PersonB");
+
+        delete personA;
+        delete personB;
+        delete mediator;
+    }
 
     SECTION("State") {
         Account *account = new Account("Dr. Who");
@@ -320,5 +333,4 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         //Clean memory
         delete factory;
     }
-
 }
