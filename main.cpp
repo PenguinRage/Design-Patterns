@@ -28,6 +28,7 @@
 #include "Patterns/chainofcommand.hpp"
 #include "Patterns/observer.hpp"
 #include "Patterns/memento.hpp"
+#include "Patterns/strategy.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -220,6 +221,24 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
 
         care_taker->ROLLBACK(orig, 0);
         REQUIRE(orig->get_State() == commit_sha1);
+    }
+
+    SECTION("Strategy") {
+        // test case 1
+        int elements[] = {1, 12, 2, 5, 4, 52, 85, 6, 20, 22};
+
+        int solution[] = {1, 2, 4, 5, 6, 12, 20, 22, 52, 85};
+
+        Mergesort merge;
+        Quicksort quick;
+        Heapsort heap;
+
+
+        SortingStrategies sorter;
+
+        sorter.set_strategy(&quick);
+        sorter.sort(elements, 0, 10);
+
     }
 }
 
