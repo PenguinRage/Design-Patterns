@@ -238,7 +238,11 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
 
         sorter.set_strategy(&quick);
         sorter.sort(elements, 0, 10);
+        for (int i = 0; i < 11; i++) {
+            cout << elements[i] << " ";
+        }
 
+        cout << endl;
     }
 }
 
