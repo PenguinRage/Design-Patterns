@@ -4,58 +4,85 @@
 
 
 #include <iostream>
+#include <vector>
+#include <utility>
 
 #ifndef DESIGN_PATTERNS_STRATEGY_HPP
 #define DESIGN_PATTERNS_STRATEGY_HPP
 
-// TODO - fill in template sorting strategies for each
+// TODO - changing this to vector because nobody uses C arrays anymore.
 
 
 class SortStrategy {
 public:
-    virtual void sort(int arr[], int left, int right) = 0;
+    virtual void sort(std::vector<int> &, int, int, int) = 0;
 };
 
 class Quicksort : public SortStrategy {
 public:
-    virtual void sort(int arr[], int left, int right) {
-        int i = left, j = right;
-        int tmp;
-        int pivot = arr[(left + right) / 2];
 
-        /* partition */
-        while (i <= j) {
-            while (arr[i] < pivot)
-                i++;
-            while (arr[j] > pivot)
-                j--;
-            if (i <= j) {
-                tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-                i++;
-                j--;
+    int partition(std::vector<int> &aVector, int left, int right, int who) {
+        for (int i = left; i < right; ++i) {
+            if (aVector[i] <= who) {
+                std::swap(aVector[i], aVector[left]);
+                left++;
             }
-        };
+        }
+        return left - 1;
+    }
 
-        /* recursion */
-        if (left < j)
-            sort(arr, left, j);
-        if (i < right)
-            sort(arr, i, right);
+    virtual void sort(std::vector<int> &aVector, int size, int left, int right) {
+        if (left >= right) return;
+        int middle = left + (right - left) / 2;
+        std::swap(aVector[middle], aVector[left]);
+        int midpoint = partition(aVector, left + 1, right, aVector[left]);
+        std::swap(aVector[left], aVector[midpoint]);
+        sort(aVector, size, left, midpoint);
+        sort(aVector, size, midpoint + 1, right);
     }
 };
 
 class Mergesort : public SortStrategy {
 public:
-    virtual void sort(int arr[], int left, int right) {
-        std::cout << "Merge sort()\n";
+    virtual void merge(std::vector<int> &aVector, int size, int low, int middle, int high) {
+        int temp[size];
+        for (int i = low; i <= high; i++) {
+            temp[i] = aVector[i];
+        }
+        int i = low;
+        int j = middle + 1;
+        int k = low;
+
+        while (i <= middle && j <= high) {
+            if (temp[i] <= temp[j]) {
+                aVector[k] = temp[i];
+                ++i;
+            } else {
+                aVector[k] = temp[j];
+                ++j;
+            }
+            ++k;
+        }
+        while (i <= middle) {
+            aVector[k] = temp[i];
+            ++k;
+            ++i;
+        }
+    }
+
+    virtual void sort(std::vector<int> &aVector, int size, int low, int high) {
+        if (low < high) {
+            int middle = (low + high) / 2;
+            sort(aVector, size, low, middle);
+            sort(aVector, size, middle + 1, high);
+            merge(aVector, size, low, middle, high);
+        }
     }
 };
 
 class Heapsort : public SortStrategy {
 public:
-    virtual void sort(int arr[], int left, int right) {
+    virtual void sort(std::vector<int> &aVector, int size, int low, int high) {
         std::cout << "Heap sort()\n";
     }
 };
@@ -71,8 +98,8 @@ public:
         m_sort = s;
     }
 
-    void sort(int arr[], int left, int right) {
-        m_sort->sort(arr, left, right);
+    void sort(std::vector<int> &aVector, int size, int low, int high) {
+        m_sort->sort(aVector, size, low, high);
     }
 };
 

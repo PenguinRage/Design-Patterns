@@ -224,10 +224,10 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
     }
 
     SECTION("Strategy") {
-        // test case 1
-        int elements[] = {1, 12, 2, 5, 4, 52, 85, 6, 20, 22};
 
-        int solution[] = {1, 2, 4, 5, 6, 12, 20, 22, 52, 85};
+        // test case 1
+        int elements[] = {1, 12, 4, 7, 2, 6, 20, 22, 3, 10};
+        vector<int> A(elements, elements + 10);
 
         Mergesort merge;
         Quicksort quick;
@@ -236,13 +236,14 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
 
         SortingStrategies sorter;
 
-        sorter.set_strategy(&quick);
-        sorter.sort(elements, 0, 10);
-        for (int i = 0; i < 11; i++) {
-            cout << elements[i] << " ";
-        }
+        sorter.set_strategy(&merge);
+        sorter.sort(A, (int) A.size(), 0, (int) A.size());
 
+        for (int i = 0; i < A.size(); ++i) {
+            cout << A[i] << " ";
+        }
         cout << endl;
+
     }
 }
 
