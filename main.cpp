@@ -3,7 +3,7 @@
 #include <map>
 #include <sstream>
 #include <time.h>
-
+#include "Patterns/command.hpp"
 
 // Testing Parameters
 #define CATCH_CONFIG_MAIN
@@ -243,6 +243,36 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
             cout << A[i] << " ";
         }
         cout << endl;
+
+    }
+
+    SECTION("Command") {
+        Systemctl *systemctl = new Systemctl();
+
+        Receiver *nginx = new Nginx();
+        Receiver *psql = new PostgreSQL();
+
+        Command *start = new Start(nginx);
+        Command *stop = new Stop(nginx);
+        Command *enable = new Enable(nginx);
+        Command *disable = new Disable(nginx);
+
+        systemctl->typeCommand(start);
+        systemctl->terminalExecute();
+        start->change(psql);
+        systemctl->terminalExecute();
+        systemctl->typeCommand(stop);
+        systemctl->terminalExecute();
+        stop->change(psql);
+        systemctl->terminalExecute();
+
+        delete start;
+        delete stop;
+        delete enable;
+        delete disable;
+        delete nginx;
+        delete psql;
+        delete systemctl;
 
     }
 }

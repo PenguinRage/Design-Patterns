@@ -9,14 +9,6 @@
 
 namespace patterns {
 
-    // Command Interface
-    class Command {
-    public:
-        virtual void execute() = 0;
-    };
-
-    // systemctl commands - Linux style - Incase your not familiar see link below
-    // https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
 
     // Receiver
     class Receiver {
@@ -29,6 +21,17 @@ namespace patterns {
 
         virtual void disable() = 0;
     };
+
+    // Command Interface
+    class Command {
+    public:
+        virtual void execute() = 0;
+
+        virtual void change(Receiver *receiver) = 0;
+    };
+
+    // systemctl commands - Linux style - Incase your not familiar see link below
+    // https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
 
     class Nginx : public Receiver {
     public:
@@ -95,6 +98,10 @@ namespace patterns {
                 : _receiver(receiver) {
         }
 
+        void change(Receiver *receiver) {
+            _receiver = receiver;
+        }
+
         void execute() {
             _receiver->start();
         }
@@ -108,6 +115,10 @@ namespace patterns {
     public:
         Stop(Receiver *receiver)
                 : _receiver(receiver) {
+        }
+
+        void change(Receiver *receiver) {
+            _receiver = receiver;
         }
 
         void execute() {
@@ -125,6 +136,10 @@ namespace patterns {
                 : _receiver(receiver) {
         }
 
+        void change(Receiver *receiver) {
+            _receiver = receiver;
+        }
+
         void execute() {
             _receiver->enable();
         }
@@ -140,6 +155,10 @@ namespace patterns {
                 : _receiver(receiver) {
         }
 
+        void change(Receiver *receiver) {
+            _receiver = receiver;
+        }
+
         void execute() {
             _receiver->disable();
         }
@@ -153,6 +172,10 @@ namespace patterns {
     public:
         void typeCommand(Command *command) {
             _command = command;
+        }
+
+        void changeService(Receiver *receiver) {
+            _command->change(receiver);
         }
 
         void terminalExecute() {
