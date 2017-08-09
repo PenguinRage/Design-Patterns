@@ -82,8 +82,36 @@ public:
 
 class Heapsort : public SortStrategy {
 public:
+
+    void Sift(std::vector<int> &aVector, const std::vector<int>::size_type heapSize,
+              const std::vector<int>::size_type siftNode) {
+        std::vector<int>::size_type i, j;
+
+        j = siftNode;
+        do {
+            i = j;
+            if (((2 * i + 1) < heapSize) && aVector[j] < aVector[2 * i + 1])
+                j = 2 * i + 1;
+            if (((2 * i + 2) < heapSize) && aVector[j] < aVector[2 * i + 2])
+                j = 2 * i + 2;
+
+            std::swap(aVector[i], aVector[j]);
+        } while (i != j);
+    }
+
+
+    void makeHeap(std::vector<int> &aVector) {
+        for (int i = (int) aVector.size() - 1; i >= 0; --i) {
+            Sift(aVector, aVector.size(), i);
+        }
+    }
+
     virtual void sort(std::vector<int> &aVector, int size, int low, int high) {
-        std::cout << "Heap sort()\n";
+        makeHeap(aVector);
+        for (std::vector<int>::size_type i = aVector.size() - 1; i > 0; --i) {
+            std::swap(aVector[i], aVector[0]);
+            Sift(aVector, i, 0);
+        }
     }
 };
 

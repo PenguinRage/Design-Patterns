@@ -236,7 +236,7 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
 
         SortingStrategies sorter;
 
-        sorter.set_strategy(&merge);
+        sorter.set_strategy(&heap);
         sorter.sort(A, (int) A.size(), 0, (int) A.size());
 
         for (int i = 0; i < A.size(); ++i) {
