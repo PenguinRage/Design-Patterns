@@ -29,6 +29,7 @@
 #include "Patterns/observer.hpp"
 #include "Patterns/memento.hpp"
 #include "Patterns/strategy.hpp"
+#include "Patterns/templatemethod.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -273,8 +274,19 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         delete nginx;
         delete psql;
         delete systemctl;
-
     }
+
+    SECTION("Template Method") {
+        Games *new_game = new SonicAdventures();
+        new_game->playGame();
+        delete new_game;
+        new_game = new MarioBros();
+        new_game->playGame();
+        delete new_game;
+    }
+
+
+
 }
 
 TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") {

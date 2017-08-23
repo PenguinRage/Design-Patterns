@@ -5,14 +5,14 @@
 
 namespace patterns {
 
-    class VideoGame {
+    class Game {
     public:
-        VideoGame() {}
+        Game() {}
 
         virtual std::string getGameTitle(std::string title) = 0;
     };
 
-    class Bioshock : public VideoGame {
+    class Bioshock : public Game {
     public:
         Bioshock() {}
 
@@ -23,7 +23,7 @@ namespace patterns {
         }
     };
 
-    class Fable : public VideoGame {
+    class Fable : public Game {
     public:
         Fable() {}
 
@@ -36,16 +36,16 @@ namespace patterns {
 
     class GameConsole {
     protected:
-        VideoGame *m_game;
+        Game *m_game;
 
     public:
-        GameConsole(VideoGame *videoGame) : m_game(videoGame) {}
+        GameConsole(Game *videoGame) : m_game(videoGame) {}
 
         virtual ~GameConsole() { delete m_game; }
 
         virtual std::string play() = 0;
 
-        virtual void load(VideoGame *video_game, std::string title) = 0;
+        virtual void load(Game *video_game, std::string title) = 0;
     };
 
 
@@ -54,13 +54,13 @@ namespace patterns {
         std::string m_title;
 
     public:
-        Xbox(VideoGame *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
+        Xbox(Game *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
 
         ~Xbox() {}
 
         std::string play() { return m_game->getGameTitle(m_title); }
 
-        void load(VideoGame *video_game, std::string title) {
+        void load(Game *video_game, std::string title) {
             delete m_game;
             m_game = video_game;
             m_title = title;
@@ -73,13 +73,13 @@ namespace patterns {
         std::string m_title;
 
     public:
-        PlayStation(VideoGame *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
+        PlayStation(Game *video_game, std::string title) : GameConsole(video_game), m_title(title) {}
 
         ~PlayStation() {}
 
         std::string play() { return m_game->getGameTitle(m_title); }
 
-        void load(VideoGame *video_game, std::string title) {
+        void load(Game *video_game, std::string title) {
             delete m_game;
             m_game = video_game;
             m_title = title;
