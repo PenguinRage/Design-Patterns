@@ -31,6 +31,7 @@
 #include "Patterns/strategy.hpp"
 #include "Patterns/templatemethod.hpp"
 #include "Patterns/iterator.hpp"
+#include "Patterns/visitor.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -303,6 +304,17 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
     }
 
     SECTION("Visitor") {
+        Piano *piano = new Piano();
+        Sound *sound = new Sound();
+        Violin *violin = new Violin();
+
+        piano->plays(sound);
+        violin->plays(sound);
+        piano->plays(sound);
+
+        delete sound;
+        delete violin;
+        delete piano;
 
     }
 
