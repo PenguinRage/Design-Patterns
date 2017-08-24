@@ -30,6 +30,7 @@
 #include "Patterns/memento.hpp"
 #include "Patterns/strategy.hpp"
 #include "Patterns/templatemethod.hpp"
+#include "Patterns/iterator.hpp"
 
 using namespace patterns;
 using namespace std;
@@ -285,7 +286,25 @@ TEST_CASE("Behavioural Design Patterns", "[Testing Behavioural Design Patterns]"
         delete new_game;
     }
 
+    SECTION("Iterator") {
+        PlaylistAggregate *aggregate = new PlaylistAggregate();
 
+        aggregate->addSong("Astronaut - Rain (The Eden Project Remix)");
+        aggregate->addSong("Kormac - Wash my hands");
+        aggregate->addSong("Westworld Soundtrack - Violent Delights Have Violent Ends");
+
+        Iterator *iter = aggregate->getIterator();
+
+        while (iter->hasNext()) {
+            cout << iter->next() << endl;
+        }
+        delete (aggregate);
+        delete (iter);
+    }
+
+    SECTION("Visitor") {
+
+    }
 
 }
 
@@ -306,10 +325,8 @@ TEST_CASE("Structural Design Patterns", "[Testing Structural Design Patterns]") 
         delete playstation;
     }
     SECTION("Adapter") {
-        Manjaro *my_dist = new ManjaroAdapter(
-                "CPU~Dual core Intel Core i7-3517U (-HT-MCP-) speed/max~859/3000 MHz Kernel~4.9.31-1-MANJARO x86_64 Up~6:15 Mem~3908.2/7611.7MB HDD~256.1GB(13.4% used) Procs~191 Client~Shell inxi~2.3.9 ");
-        REQUIRE(my_dist->showLogo() ==
-                "CPU~Dual core Intel Core i7-3517U (-HT-MCP-) speed/max~859/3000 MHz Kernel~4.9.31-1-MANJARO x86_64 Up~6:15 Mem~3908.2/7611.7MB HDD~256.1GB(13.4% used) Procs~191 Client~Shell inxi~2.3.9 ");
+        Manjaro *my_dist = new ManjaroAdapter("Kernel~4.9.31-1-MANJARO x86_64");
+        REQUIRE(my_dist->showLogo() == "Kernel~4.9.31-1-MANJARO x86_64");
     }
     SECTION("Protection Proxy") {
         Alcoholic *angst_teen = new Alcoholic(15);
